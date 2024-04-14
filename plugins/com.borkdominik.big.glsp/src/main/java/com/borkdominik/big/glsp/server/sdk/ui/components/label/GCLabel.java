@@ -25,7 +25,6 @@ import com.borkdominik.big.glsp.server.sdk.cdk.base.GCIdentifiable;
 import com.borkdominik.big.glsp.server.sdk.cdk.gmodel.GCModelElement;
 
 import lombok.Builder;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
@@ -62,7 +61,6 @@ public class GCLabel extends GCModelElement<EObject, GLabel> implements GCIdenti
 
    @SuperBuilder
    public static class Options {
-      @NonNull
       public String label;
       @Builder.Default
       public Optional<String> id = Optional.empty();

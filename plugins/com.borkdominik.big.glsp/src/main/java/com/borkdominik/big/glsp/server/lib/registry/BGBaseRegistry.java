@@ -33,12 +33,18 @@ public abstract class BGBaseRegistry<K, V> implements Registry<K, V> {
    public boolean register(final K key,
       final V value) {
       if (hasKey(key)) {
-         printContent();
-         throw new IllegalArgumentException(
-            String.format("[%s] Key %s already exists with value %s. Tried to register with value %s",
-               this.getClass().getSimpleName(), deriveKey(key),
-               get(key).map(v -> v.getClass().getName()).orElse("Unknown"),
-               value.getClass().getName()));
+         var oldValue = this.retrieve(key);
+
+         if (!oldValue.getClass().isAssignableFrom(value.getClass())) {
+            printContent();
+            throw new IllegalArgumentException(
+               String.format("[%s] Key %s already exists with value %s. Tried to register with value %s",
+                  this.getClass().getSimpleName(), deriveKey(key),
+                  get(key).map(v -> v.getClass().getName()).orElse("Unknown"),
+                  value.getClass().getName()));
+         }
+
+         deregister(key);
       }
       keys.put(deriveKey(key), key);
       return registry.register(deriveKey(key), value);

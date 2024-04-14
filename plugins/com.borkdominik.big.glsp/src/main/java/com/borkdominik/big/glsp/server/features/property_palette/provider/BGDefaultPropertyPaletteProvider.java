@@ -11,6 +11,7 @@
 package com.borkdominik.big.glsp.server.features.property_palette.provider;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.glsp.server.emf.EMFIdGenerator;
@@ -18,6 +19,7 @@ import org.eclipse.glsp.server.emf.EMFIdGenerator;
 import com.borkdominik.big.glsp.server.core.model.BGModelState;
 import com.borkdominik.big.glsp.server.core.model.BGTypeProvider;
 import com.borkdominik.big.glsp.server.core.model.BGTypeProviderAll;
+import com.borkdominik.big.glsp.server.elements.configuration.BGElementConfigurationRegistry;
 import com.borkdominik.big.glsp.server.features.property_palette.model.PropertyPalette;
 import com.google.inject.Inject;
 
@@ -28,6 +30,8 @@ public class BGDefaultPropertyPaletteProvider implements BGPropertyPaletteProvid
    @Inject
    protected BGPropertyProviderRegistry registry;
    @Inject
+   protected BGElementConfigurationRegistry configurationRegistry;
+   @Inject
    protected EMFIdGenerator idGenerator;
 
    @Override
@@ -35,7 +39,11 @@ public class BGDefaultPropertyPaletteProvider implements BGPropertyPaletteProvid
 
    @Override
    public PropertyPalette provide(final EObject element) {
-      var providers = registry.retrieve(modelState.representation().getUnsafe(), element.getClass());
+      var representation = modelState.representation().getUnsafe();
+      var providers = registry.get(representation, element.getClass())
+         .map(p -> p.stream().filter(e -> configurationRegistry.has(representation, e.getHandledElementTypes()))
+            .collect(Collectors.toSet()))
+         .orElse(Set.of());
 
       return new PropertyPalette(
          idGenerator.getOrCreateId(element),

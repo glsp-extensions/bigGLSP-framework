@@ -12,6 +12,7 @@ package com.borkdominik.big.glsp.server.features.property_palette.provider;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.Enumerator;
@@ -69,6 +70,16 @@ public abstract class BGElementPropertyProvider<TElement extends EObject> implem
    @Override
    public boolean matches(final BGUpdateElementPropertyAction action) {
       return handledProperties.contains(action.getPropertyId());
+   }
+
+   protected List<ElementPropertyItem> provideIfConfigured(final Set<BGTypeProvider> elementTypes,
+      final Supplier<List<ElementPropertyItem>> supplier) {
+
+      if (providerContext.elementConfig().has(elementTypes)) {
+         return supplier.get();
+      }
+
+      return List.of();
    }
 
    @Override
