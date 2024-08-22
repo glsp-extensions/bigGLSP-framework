@@ -26,7 +26,6 @@ import com.borkdominik.big.glsp.server.core.model.BGModelRepresentation;
 import com.borkdominik.big.glsp.server.lib.registry.BGRegistryKey;
 import com.google.inject.Inject;
 
-@SuppressWarnings("restriction")
 public class BGOperationHandlerRegistry implements OperationHandlerRegistry {
 
    protected final MapRegistry<String, OperationHandler<?>> internalRegistry;

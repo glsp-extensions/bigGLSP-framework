@@ -13,6 +13,7 @@
 	<name>big Framework</name>
 
 	<modules>
+		<module>./targetplatforms</module>
 		<module>./plugins/com.borkdominik.big.glsp.server</module>
 	</modules>
 

@@ -22,7 +22,6 @@ import com.borkdominik.big.glsp.server.core.model.BGModelRepresentation;
 import com.borkdominik.big.glsp.server.lib.registry.BGRegistryKey;
 import com.google.inject.Inject;
 
-@SuppressWarnings("restriction")
 public class BGActionHandlerRegistry extends DefaultActionHandlerRegistry {
    protected BGModelRepresentation modelStateRepresentation;
    protected BGOverrideActionHandlerRegistry overrideRegistry;

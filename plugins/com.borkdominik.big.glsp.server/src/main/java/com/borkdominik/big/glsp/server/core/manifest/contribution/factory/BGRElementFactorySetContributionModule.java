@@ -1,4 +1,4 @@
-/********************************************************************************
+/******************************************************************************** 
  * Copyright (c) 2024 borkdominik and others.
  *
  * This program and the accompanying materials are made available under the
@@ -12,7 +12,6 @@ package com.borkdominik.big.glsp.server.core.manifest.contribution.factory;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import com.borkdominik.big.glsp.server.core.di.BGRElementTypeFactory;
 import com.borkdominik.big.glsp.server.core.di.DIProvider;
 import com.borkdominik.big.glsp.server.core.manifest.contribution.representation.BGRSetContributionModule;
@@ -21,17 +20,63 @@ import com.borkdominik.big.glsp.server.lib.utils.TypeLiteralUtils;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
 
-import lombok.experimental.SuperBuilder;
-
-public class BGRElementFactorySetContributionModule<TContribution, TOptions extends BGRElementFactorySetContributionModule.Options<TContribution>>
-   extends BGRSetContributionModule<TContribution, TOptions> {
-
+public class BGRElementFactorySetContributionModule<TContribution, TOptions extends BGRElementFactorySetContributionModule.Options<TContribution>> extends BGRSetContributionModule<TContribution, TOptions> {
    protected Set<TypeLiteral<BGRElementTypeFactory<? extends TContribution>>> factoryTypes = new HashSet<>();
 
-   @SuperBuilder(builderMethodName = "BGRElementFactorySetContributionModuleBuilder")
    public static class Options<TContribution> extends BGRSetContributionModule.Options<TContribution> {
       public Set<BGTypeProvider> elementTypes;
       public Set<TypeLiteral<? extends TContribution>> concreteTypes;
+
+      public static abstract class OptionsBuilder<TContribution, C extends BGRElementFactorySetContributionModule.Options<TContribution>, B extends BGRElementFactorySetContributionModule.Options.OptionsBuilder<TContribution, C, B>> extends BGRSetContributionModule.Options.OptionsBuilder<TContribution, C, B> {
+         private Set<BGTypeProvider> elementTypes;
+         private Set<TypeLiteral<? extends TContribution>> concreteTypes;
+
+         public B elementTypes(final Set<BGTypeProvider> elementTypes) {
+            this.elementTypes = elementTypes;
+            return self();
+         }
+
+         public B concreteTypes(final Set<TypeLiteral<? extends TContribution>> concreteTypes) {
+            this.concreteTypes = concreteTypes;
+            return self();
+         }
+
+         @Override
+         protected abstract B self();
+
+         @Override
+         public abstract C build();
+
+         @Override
+         public java.lang.String toString() {
+            return "BGRElementFactorySetContributionModule.Options.OptionsBuilder(super=" + super.toString() + ", elementTypes=" + this.elementTypes + ", concreteTypes=" + this.concreteTypes + ")";
+         }
+      }
+
+      private static final class OptionsBuilderImpl<TContribution> extends BGRElementFactorySetContributionModule.Options.OptionsBuilder<TContribution, BGRElementFactorySetContributionModule.Options<TContribution>, BGRElementFactorySetContributionModule.Options.OptionsBuilderImpl<TContribution>> {
+         private OptionsBuilderImpl() {
+         }
+
+         @Override
+         protected BGRElementFactorySetContributionModule.Options.OptionsBuilderImpl<TContribution> self() {
+            return this;
+         }
+
+         @Override
+         public BGRElementFactorySetContributionModule.Options<TContribution> build() {
+            return new BGRElementFactorySetContributionModule.Options<TContribution>(this);
+         }
+      }
+
+      protected Options(final BGRElementFactorySetContributionModule.Options.OptionsBuilder<TContribution, ?, ?> b) {
+         super(b);
+         this.elementTypes = b.elementTypes;
+         this.concreteTypes = b.concreteTypes;
+      }
+
+      public static <TContribution> BGRElementFactorySetContributionModule.Options.OptionsBuilder<TContribution, ?, ?> BGRElementFactorySetContributionModuleBuilder() {
+         return new BGRElementFactorySetContributionModule.Options.OptionsBuilderImpl<TContribution>();
+      }
    }
 
    public BGRElementFactorySetContributionModule(final TOptions options) {
@@ -47,16 +92,12 @@ public class BGRElementFactorySetContributionModule<TContribution, TOptions exte
    @Override
    protected void onBeforeContribute() {
       super.onBeforeContribute();
-
       this.configureFactory();
    }
 
    protected void configureFactory() {
       for (var concreteType : options.concreteTypes) {
-         TypeLiteral<BGRElementTypeFactory<? extends TContribution>> factoryType = TypeLiteralUtils.parameterizedType(
-            BGRElementTypeFactory.class,
-            concreteType);
-
+         TypeLiteral<BGRElementTypeFactory<? extends TContribution>> factoryType = TypeLiteralUtils.parameterizedType(BGRElementTypeFactory.class, concreteType);
          this.factoryTypes.add(factoryType);
          this.install(new BGRFactoryContributionModule<>(factoryType));
       }
@@ -64,9 +105,7 @@ public class BGRElementFactorySetContributionModule<TContribution, TOptions exte
 
    protected void consume(final Multibinder<TContribution> contribution) {
       for (var factoryType : factoryTypes) {
-         var provider = DIProvider.byLiteral(factoryType,
-            (fa) -> fa.create(options.manifest.representation(), options.elementTypes));
-
+         var provider = DIProvider.byLiteral(factoryType, fa -> fa.create(options.manifest.representation(), options.elementTypes));
          contribution.addBinding().toProvider(provider);
       }
    }

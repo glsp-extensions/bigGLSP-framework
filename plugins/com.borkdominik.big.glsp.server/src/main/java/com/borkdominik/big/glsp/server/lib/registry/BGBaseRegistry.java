@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 import org.eclipse.glsp.server.internal.registry.MapRegistry;
 import org.eclipse.glsp.server.registry.Registry;
 
-@SuppressWarnings("restriction")
 public abstract class BGBaseRegistry<K, V> implements Registry<K, V> {
    protected final Map<String, K> keys = new HashMap<>();
    protected final MapRegistry<String, V> registry = new MapRegistry<>();
