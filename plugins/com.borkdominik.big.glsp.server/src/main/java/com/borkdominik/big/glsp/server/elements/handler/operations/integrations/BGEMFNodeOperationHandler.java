@@ -22,7 +22,7 @@ import org.eclipse.glsp.server.utils.LayoutUtil;
 
 import com.borkdominik.big.glsp.server.core.commands.emf.BGEMFCommandContext;
 import com.borkdominik.big.glsp.server.core.commands.emf.notation.BGEMFCreateShapeNotationCommand;
-import com.borkdominik.big.glsp.server.core.commands.semantic.BGCreateNodeSemanticCommand;
+import com.borkdominik.big.glsp.server.core.commands.semantic.BGCreateSemanticCommand;
 import com.borkdominik.big.glsp.server.core.model.BGEMFModelElementIndex;
 import com.borkdominik.big.glsp.server.core.model.BGEMFModelState;
 import com.borkdominik.big.glsp.server.core.model.BGTypeProvider;
@@ -58,12 +58,12 @@ public abstract class BGEMFNodeOperationHandler<TElement extends EObject, TParen
       return Optional.of(compoundCommand);
    }
 
-   protected abstract BGCreateNodeSemanticCommand<TElement, TParent, ?> createSemanticCommand(
+   protected abstract BGCreateSemanticCommand<TElement> createSemanticCommand(
       final CreateNodeOperation operation, final TParent parent);
 
    protected BGEMFCreateShapeNotationCommand createNotationCommand(final CreateNodeOperation operation,
       final TParent parent,
-      final BGCreateNodeSemanticCommand<TElement, TParent, ?> semanticCommand) {
+      final BGCreateSemanticCommand<TElement> semanticCommand) {
       var container = this.elementIndex.getGModel(operation.getContainerId()).orElseGet(modelState::getRoot);
 
       var absoluteLocation = operation.getLocation();

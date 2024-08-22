@@ -10,13 +10,18 @@
  ********************************************************************************/
 package com.borkdominik.big.glsp.server.sdk.ui.builder;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.glsp.graph.GModelElement;
 
 import com.borkdominik.big.glsp.server.sdk.cdk.GCModelContext;
 import com.borkdominik.big.glsp.server.sdk.cdk.base.GCBaseObject;
+import com.borkdominik.big.glsp.server.sdk.cdk.base.GCProvider;
+import com.borkdominik.big.glsp.server.sdk.cdk.gmodel.GCModelElement;
 import com.borkdominik.big.glsp.server.sdk.cdk.gmodel.GCModelList;
 import com.borkdominik.big.glsp.server.sdk.ui.properties.GModelProperty;
 import com.borkdominik.big.glsp.server.sdk.ui.properties.GNotationProperty;
@@ -44,5 +49,19 @@ public abstract class GCModelBuilder<TOrigin extends EObject, TElement extends G
       gmodelRoot.getChildren().add(createRootComponent(gmodelRoot).provideGModel());
 
       return gmodelRoot;
+   }
+
+   protected List<GCProvider> providersOf(final List<? extends EObject> elements) {
+      var list = new ArrayList<GCProvider>();
+      list.addAll(elements.stream()
+         .map(e -> context.mapHandler.handle(e))
+         .map(e -> new GCModelElement<>(context, origin, e))
+         .collect(Collectors.toList()));
+      list.addAll(elements.stream()
+         .map(e -> context.mapHandler.handleSiblings(e))
+         .flatMap(Collection::stream)
+         .map(e -> new GCModelElement<>(context, origin, e))
+         .collect(Collectors.toList()));
+      return list;
    }
 }

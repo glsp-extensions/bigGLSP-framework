@@ -21,7 +21,7 @@ import org.eclipse.glsp.server.operations.CreateEdgeOperation;
 
 import com.borkdominik.big.glsp.server.core.commands.emf.BGEMFCommandContext;
 import com.borkdominik.big.glsp.server.core.commands.emf.notation.BGEMFCreateEdgeNotationCommand;
-import com.borkdominik.big.glsp.server.core.commands.semantic.BGCreateEdgeSemanticCommand;
+import com.borkdominik.big.glsp.server.core.commands.semantic.BGCreateSemanticCommand;
 import com.borkdominik.big.glsp.server.core.model.BGEMFModelElementIndex;
 import com.borkdominik.big.glsp.server.core.model.BGEMFModelState;
 import com.borkdominik.big.glsp.server.core.model.BGTypeProvider;
@@ -58,12 +58,12 @@ public abstract class BGEMFEdgeOperationHandler<TElement extends EObject, TSourc
       return Optional.of(compoundCommand);
    }
 
-   protected abstract BGCreateEdgeSemanticCommand<TElement, TSource, TTarget, ?> createSemanticCommand(
+   protected abstract BGCreateSemanticCommand<TElement> createSemanticCommand(
       final CreateEdgeOperation operation, final TSource source, final TTarget target);
 
    protected BGEMFCreateEdgeNotationCommand createNotationCommand(final CreateEdgeOperation operation,
       final TSource source, final TTarget target,
-      final BGCreateEdgeSemanticCommand<TElement, TSource, TTarget, ?> semanticCommand) {
+      final BGCreateSemanticCommand<TElement> semanticCommand) {
 
       var notationOptions = new BGEMFCreateEdgeNotationCommand.Options(idGenerator, semanticCommand::getElement);
 

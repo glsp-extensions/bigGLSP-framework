@@ -78,7 +78,8 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.borkdominik.big.glsp.UmlGLSPServerLauncher</mainClass>
-									<!-- Due to Log4j 2 Performance issue with Java 11, see also https://issues.apache.org/jira/browse/LOG4J2-2537 -->
+									<!-- Due to Log4j 2 Performance issue with Java 11, see also
+									https://issues.apache.org/jira/browse/LOG4J2-2537 -->
 									<manifestEntries>
 										<Multi-Release>true</Multi-Release>
 									</manifestEntries>

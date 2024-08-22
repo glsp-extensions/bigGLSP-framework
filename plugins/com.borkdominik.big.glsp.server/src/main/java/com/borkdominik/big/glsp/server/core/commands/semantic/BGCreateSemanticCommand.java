@@ -14,27 +14,12 @@ import org.eclipse.emf.ecore.EObject;
 
 import com.borkdominik.big.glsp.server.core.commands.BGCommandContext;
 
-public abstract class BGCreateNodeSemanticCommand<TElement extends EObject, TParent extends EObject, TArgument>
-   extends BGSemanticCommand {
-
-   protected TParent parent;
+public abstract class BGCreateSemanticCommand<TElement> extends BGSemanticCommand {
    protected TElement element;
-   protected TArgument argument;
 
-   public BGCreateNodeSemanticCommand(final BGCommandContext context, final EObject root, final TParent parent,
-      final TArgument argument) {
+   public BGCreateSemanticCommand(final BGCommandContext context, final EObject root) {
       super(context, root);
-
-      this.parent = parent;
-      this.argument = argument;
    }
-
-   @Override
-   protected void doExecute() {
-      this.element = createElement(parent, argument);
-   }
-
-   protected abstract TElement createElement(final TParent parent, TArgument argument);
 
    public TElement getElement() { return this.element; }
 }

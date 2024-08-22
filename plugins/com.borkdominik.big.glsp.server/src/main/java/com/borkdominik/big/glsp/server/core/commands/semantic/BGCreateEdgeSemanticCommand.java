@@ -15,9 +15,8 @@ import org.eclipse.emf.ecore.EObject;
 import com.borkdominik.big.glsp.server.core.commands.BGCommandContext;
 
 public abstract class BGCreateEdgeSemanticCommand<TElement extends EObject, TSource extends EObject, TTarget extends EObject, TArgument>
-   extends BGSemanticCommand {
+   extends BGCreateSemanticCommand<TElement> {
 
-   protected TElement element;
    protected TSource source;
    protected TTarget target;
    protected TArgument argument;
@@ -37,6 +36,4 @@ public abstract class BGCreateEdgeSemanticCommand<TElement extends EObject, TSou
    }
 
    protected abstract TElement createElement(final TSource source, TTarget target, TArgument argument);
-
-   public TElement getElement() { return this.element; }
 }

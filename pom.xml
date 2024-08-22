@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.borkdominik.big</groupId>
 	<artifactId>com.borkdominik.big.parent</artifactId>
 	<description>big Framework </description>
@@ -11,12 +12,16 @@
 
 	<name>big Framework</name>
 
-	<properties>	
+	<modules>
+		<module>./plugins/com.borkdominik.big.glsp.server</module>
+	</modules>
+
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.source>17</java.source>
 		<java.target>17</java.target>
 		<project.build.java.target>17</project.build.java.target>
-		
+
 		<!-- Maven Plugin Versions: General maven plugin versions -->
 		<buildhelper.maven.version>3.3.0</buildhelper.maven.version>
 		<codehaus.mojo.maven.version>3.2.0</codehaus.mojo.maven.version>
@@ -56,7 +61,7 @@
 		<jetty.websocket.version>[10.0.12,)</jetty.websocket.version>
 		<googlecode.addjars.version>1.0.5</googlecode.addjars.version>
 
-		
+
 		<!-- Release Dependencies for M2 -->
 		<nexus.maven.version>1.6.13</nexus.maven.version>
 		<maven.gpg.version>1.6</maven.gpg.version>
@@ -94,13 +99,10 @@
 			</activation>
 
 			<properties>
-			  <!-- Maven Plugin Versions: General maven plugin versions -->
-				
+				<!-- Maven Plugin Versions: General maven plugin versions -->
+
 			</properties>
 
-			<modules>
-				<module>plugins/com.borkdominik.big.glsp.server</module>
-			</modules>
 			<build>
 				<pluginManagement>
 					<plugins>
@@ -224,13 +226,9 @@
 			</activation>
 
 			<properties>
-				<checkstyle.version>8.44</checkstyle.version>		
+				<checkstyle.version>8.44</checkstyle.version>
 			</properties>
 
-			<modules>
-				<module>plugins/com.borkdominik.big.glsp.server</module>
-			</modules>
-			
 			<dependencies>
 				<dependency>
 					<groupId>org.apache.logging.log4j</groupId>
@@ -248,9 +246,9 @@
 					<version>${google.guava.version}</version>
 				</dependency>
 				<dependency>
-				    <groupId>org.apache.logging.log4j</groupId>
-				    <artifactId>log4j-slf4j2-impl</artifactId>
-				    <version>${apache.logging.log4j.version}</version>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j2-impl</artifactId>
+					<version>${apache.logging.log4j.version}</version>
 				</dependency>
 			</dependencies>
 
@@ -325,10 +323,6 @@
 
 		<profile>
 			<id>m2-release</id>
-			<modules>
-				<module>plugins/com.borkdominik.big.glsp.server</module>
-			</modules>
-			
 
 			<distributionManagement>
 				<snapshotRepository>
@@ -356,7 +350,7 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>${maven.javadoc.version}</version>
 						<configuration>
-						
+
 							<source>${java.source}</source>
 							<detectJavaApiLink>false</detectJavaApiLink>
 							<tags>
