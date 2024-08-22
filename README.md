@@ -44,14 +44,6 @@ You also need the following installations:
 
 Download and install/extract the Eclipse IDE.
 
-### Install Lombok
-
-Within the `jars` folder, there is `lombok.jar`. Execute within the terminal
-
-`java -jar lombok.jar`
-
-Do the steps required in the wizard. More information can be taken from the [lombok documentation](https://projectlombok.org/setup/eclipse).
-
 ### Install Maven
 
 You first need to install the following plugin:
