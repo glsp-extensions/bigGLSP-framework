@@ -32,6 +32,7 @@ import com.borkdominik.big.glsp.server.core.features.popup.BGPopupFactory;
 import com.borkdominik.big.glsp.server.core.features.tool_palette.BGToolPaletteItemProvider;
 import com.borkdominik.big.glsp.server.core.handler.action.BGActionHandlerRegistry;
 import com.borkdominik.big.glsp.server.core.handler.action.clipboard.BGRequestClipboardDataActionHandler;
+import com.borkdominik.big.glsp.server.core.handler.action.model.BGRequestModelResourcesActionHandler;
 import com.borkdominik.big.glsp.server.core.handler.action.new_file.BGRequestNewFileActionHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.change_bounds.BGEMFChangeBoundsOperationHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.change_routing_points.BGEMFChangeRoutingPointsOperationHandler;
@@ -118,6 +119,7 @@ public abstract class BGEMFDiagramModule extends EMFNotationDiagramModule {
       bindings.rebind(OperationActionHandler.class, BGOperationHandler.class);
       bindings.add(BGRequestNewFileActionHandler.class);
       bindings.add(BGRequestClipboardDataActionHandler.class);
+      bindings.add(BGRequestModelResourcesActionHandler.class);
    }
 
    @Override

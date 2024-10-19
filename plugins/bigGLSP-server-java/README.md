@@ -9,8 +9,8 @@ The bigGLSP Java-Server package provides a generic framework for Java that exten
 
 Execute the command:
 
-- Linux: `./gradlew clean build publishToMavenLocal`
-- Windows: `./gradlew.bat clean build publishToMavenLocal`
+- Linux: `./gradlew prepare`
+- Windows: `./gradlew.bat prepare`
 
 ## IDE
 
