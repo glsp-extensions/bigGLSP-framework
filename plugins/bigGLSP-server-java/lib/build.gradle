@@ -41,3 +41,15 @@ eclipse {
         baseSourceOutputDir = file('build')
     }
 }
+
+
+tasks.register("prepare") {
+    group = "bigUML"
+    description = "Clean, Compile and Publish to Maven Local"
+    dependsOn clean
+    dependsOn build
+    dependsOn publishToMavenLocal
+    doLast {
+        println("bigGLSP Server Framework is ready to consume.")
+    }
+}
