@@ -20,6 +20,7 @@ import org.eclipse.glsp.server.emf.notation.EMFChangeBoundsOperationHandler;
 import org.eclipse.glsp.server.emf.notation.EMFNotationDiagramModule;
 import org.eclipse.glsp.server.features.popup.PopupModelFactory;
 import org.eclipse.glsp.server.features.toolpalette.ToolPaletteItemProvider;
+import org.eclipse.glsp.server.gmodel.GModelCutOperationHandler;
 import org.eclipse.glsp.server.operations.OperationActionHandler;
 import org.eclipse.glsp.server.operations.OperationHandler;
 import org.eclipse.glsp.server.operations.OperationHandlerRegistry;
@@ -36,6 +37,7 @@ import com.borkdominik.big.glsp.server.core.handler.action.model.BGRequestModelR
 import com.borkdominik.big.glsp.server.core.handler.action.new_file.BGRequestNewFileActionHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.change_bounds.BGEMFChangeBoundsOperationHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.change_routing_points.BGEMFChangeRoutingPointsOperationHandler;
+import com.borkdominik.big.glsp.server.core.handler.operation.copy_paste.BGEMFCutOperationHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.copy_paste.BGEMFPasteOperationHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.create.BGCreateEdgeOperationHandler;
 import com.borkdominik.big.glsp.server.core.handler.operation.create.BGCreateNodeOperationHandler;
@@ -133,5 +135,6 @@ public abstract class BGEMFDiagramModule extends EMFNotationDiagramModule {
       bindings.add(BGReconnectEdgeOperationHandler.class);
       bindings.add(BGEMFChangeRoutingPointsOperationHandler.class);
       bindings.add(BGEMFPasteOperationHandler.class);
+      bindings.rebind(GModelCutOperationHandler.class, BGEMFCutOperationHandler.class);
    }
 }

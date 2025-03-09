@@ -26,8 +26,8 @@ import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 
 public abstract class BGNodeOperationHandler<TElement extends EObject, TParent extends EObject>
-   extends BGElementOperationHandler implements
-   BGCreateNodeHandler {
+      extends BGElementOperationHandler implements
+      BGCreateNodeHandler {
 
    protected final Gson gson;
 
@@ -48,6 +48,9 @@ public abstract class BGNodeOperationHandler<TElement extends EObject, TParent e
    @Override
    public Optional<Command> handleCreateNode(final CreateNodeOperation operation) {
       var containerId = operation.getContainerId();
+      if (containerId == null) {
+         containerId = this.modelState.getIndex().getRoot().getId();
+      }
       var container = modelState.getElementIndex().getOrThrow(containerId, TypeLiteralUtils.of(parentType));
 
       return doHandleCreateNode(operation, container);
