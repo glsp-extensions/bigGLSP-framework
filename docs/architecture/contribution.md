@@ -26,7 +26,3 @@ Most features and operations have their own contribution. In the following the m
   - `BGAutocompleteContribution`
   - `BGOutlineContribution`
   - `BGPropertyPaletteContribution`
-
----
-
-The tutorials provide hands-on examples on how to use them.

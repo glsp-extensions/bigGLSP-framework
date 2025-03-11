@@ -41,7 +41,3 @@ Following the `core` and `element` packages, we have a `feature` package. This p
 Lastly, we have the `sdk` package. This package provides tools and components that make it easier to create and manage gmodels, or graphical models, for our diagrams. It's like a toolkit that simplifies the process of building and customizing the visual elements in our system.
 
 It uses the concepts shown in the [GLSP Graphical Model documentation](https://eclipse.dev/glsp/documentation/gmodel/). It is not necessary to use the toolkit, it is also possible to follow the standard approach.
-
----
-
-The tutorials provide hands-on examples on how to use them.
