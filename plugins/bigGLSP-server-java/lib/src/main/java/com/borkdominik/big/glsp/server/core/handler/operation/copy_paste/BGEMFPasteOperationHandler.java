@@ -33,7 +33,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 public class BGEMFPasteOperationHandler
-   extends BGEMFOperationHandler<PasteOperation> {
+      extends BGEMFOperationHandler<PasteOperation> {
 
    protected final Gson gson;
 
@@ -49,7 +49,7 @@ public class BGEMFPasteOperationHandler
    @Override
    public Optional<Command> createCommand(final PasteOperation operation) {
       var copiedElements = getCopiedElements(
-         operation.getClipboardData().get(BGRequestClipboardDataActionHandler.CLIPBOARD_SELECTED_ELEMENTS));
+            operation.getClipboardData().get(BGRequestClipboardDataActionHandler.CLIPBOARD_SELECTED_ELEMENTS));
 
       if (copiedElements.isEmpty()) {
          return Optional.empty();
@@ -73,19 +73,20 @@ public class BGEMFPasteOperationHandler
    protected Set<GModelElement> getCopiedElements(final String jsonString) {
       var elements = gson.fromJson(jsonString, GModelElement[].class);
       return elements != null
-         ? new HashSet<>(
-            Arrays.asList(elements).stream()
-               .map(e -> this.modelState.getElementIndex().getGModelOrThrow(e.getId()))
-               .toList())
-         : Collections.emptySet();
+            ? new HashSet<>(
+                  Arrays.asList(elements).stream()
+                        .filter(e -> this.modelState.getElementIndex().getGModel(e.getId()).isPresent())
+                        .map(e -> this.modelState.getElementIndex().getGModelOrThrow(e.getId()))
+                        .toList())
+            : Collections.emptySet();
    }
 
    protected Set<GModelElement> filterElements(final Set<GModelElement> elements) {
       return elements.stream()
-         .filter(e -> {
-            var isNotAncestor = elements.stream().noneMatch(el -> el != e && EcoreUtil.isAncestor(el, e));
-            return isNotAncestor;
-         })
-         .collect(Collectors.toSet());
+            .filter(e -> {
+               var isNotAncestor = elements.stream().noneMatch(el -> el != e && EcoreUtil.isAncestor(el, e));
+               return isNotAncestor;
+            })
+            .collect(Collectors.toSet());
    }
 }

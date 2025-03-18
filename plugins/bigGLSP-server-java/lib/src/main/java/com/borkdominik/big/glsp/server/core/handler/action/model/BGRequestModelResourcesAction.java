@@ -10,13 +10,26 @@
  ********************************************************************************/
 package com.borkdominik.big.glsp.server.core.handler.action.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.glsp.server.actions.RequestAction;
 
 public class BGRequestModelResourcesAction extends RequestAction<BGModelResourcesResponseAction> {
    public static final String KIND = "requestModelResources";
 
+   protected List<String> formats = new ArrayList<>();
+
    public BGRequestModelResourcesAction() {
       super(KIND);
    }
 
+   public BGRequestModelResourcesAction(List<String> formats) {
+      super(KIND);
+      this.formats = formats;
+   }
+
+   public List<String> getFormats() {
+      return formats;
+   }
 }

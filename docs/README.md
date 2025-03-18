@@ -13,7 +13,3 @@ The following documents provide a comprehensive overview of the architectural fr
 - [Overview](./architecture/overview.md)
 - [Manifest](./architecture/manifest.md)
 - [Contribution](./architecture/contribution.md)
-
-## Tutorials
-
-See [bigUML](https://github.com/borkdominik/bigUML) for tutorials and concrete examples on how the system works (e.g., operations, actions, features).

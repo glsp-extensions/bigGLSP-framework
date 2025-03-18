@@ -19,7 +19,3 @@ The element package exposes the following manifests:
 - `BGEdgeElementManifest`: Edge-specific diagram element implementations need to extend this class.
 
 There are also integrations for `EMF`.
-
----
-
-The tutorials provide hands-on examples on how to use them.

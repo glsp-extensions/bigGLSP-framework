@@ -17,7 +17,7 @@ import org.eclipse.glsp.server.actions.ResponseAction;
 public class BGModelResourcesResponseAction extends ResponseAction {
    public static final String KIND = "modelResourcesResponse";
 
-   private Map<String, BGModelResource> resources;
+   protected Map<String, BGModelResource> resources;
 
    public BGModelResourcesResponseAction(final Map<String, BGModelResource> resources) {
       super(KIND);
